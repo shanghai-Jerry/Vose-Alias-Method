@@ -44,7 +44,7 @@ func NewVoseAliasMethod(dist []float64, nsample int64) (voseAlias *VoseAlias, er
 			smallList.PushBack(i)
 		}
 	}
-
+	fmt.Println("probSum:", probSum)
 	if probSum != 1.0 {
 		return voseAlias, errors.New("dist normalize error")
 	}
