@@ -7,7 +7,7 @@ import (
 
 func TestVoseAlias(t *testing.T) {
 	dist := []float64{3, 4, 5, 2, 1, 10}
-	vas, err := NewVoseAliasMethod(dist, 10000000)
+	vas, err := NewVoseAliasMethod(dist, 100000000)
 	if err != nil {
 
 	} else {

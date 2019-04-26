@@ -33,7 +33,7 @@ func NewVoseAliasMethod(dist []float64, nsample int64) (voseAlias *VoseAlias, er
 	var aliasTable = make([]int, len(dist))
 	var probSum float64
 	for i, v := range dist {
-		aliasTable[i] = i
+		aliasTable[i] = -1 // default, no any alias
 		normalDist[i] = v / sum
 		probSum += normalDist[i]
 		normalProbValue := float64(len(dist)) * normalDist[i]
@@ -67,7 +67,7 @@ func NewVoseAliasMethod(dist []float64, nsample int64) (voseAlias *VoseAlias, er
 			smallList.PushBack(large_v)
 		}
 	}
-	fmt.Println("build VoseAlias finished,aliasTable:", aliasTable, ",probTable:", probTable)
+	fmt.Println("build VoseAlias finished, aliasTable:", aliasTable, ",probTable:", probTable)
 	return &VoseAlias{Dist: dist, NSample: nsample, NormalDist: normalDist, AliasTable: aliasTable, ProbTable: probTable}, nil
 }
 
@@ -82,7 +82,7 @@ func (va *VoseAlias) Sample() []int {
 		// random prod
 		r2 := rand.Float64()
 		ridx := int(r * float64(n))
-		if va.AliasTable[ridx] == ridx {
+		if va.AliasTable[ridx] == -1 {
 			ret = append(ret, ridx)
 		} else {
 			if va.ProbTable[ridx] > r2 {
